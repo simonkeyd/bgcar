@@ -23,15 +23,16 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip build twine
 
-      #      - name: build & push
-      #        env:
-      #          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-      #        run: |
-      #          python3 -m build
-      #          python3 -m twine upload --user "__token__" \
-      #                                  --password "$PYPI_TOKEN" \
-      #                                  --non-interactive \
-      #                                  dist/*
+      - name: build & push
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          python3 -m build
+          python3 -m twine upload --user "__token__" \
+                                  --password "$PYPI_TOKEN" \
+                                  --non-interactive \
+                                  --skip-existing \
+                                  dist/*
 
       - name: craft changelog
         id: craft-changelog
@@ -39,7 +40,7 @@ jobs:
           echo "CHANGELOG<<MDR" >> $GITHUB_ENV
           echo "## changelog" >> $GITHUB_ENV
           if [[ $(git tag | wc -l) -ge 2 ]]; then
-            git_changelog_range="$(git describe --abbrev=0 ${GITHUB_REF}^)..$GITHUB_REF)"
+            git_changelog_range="$(git describe --abbrev=0 ${GITHUB_REF}^)..$GITHUB_REF"
           fi
           git log --pretty='%s  ' ${git_changelog_range} >> $GITHUB_ENV
           echo "MDR" >> $GITHUB_ENV

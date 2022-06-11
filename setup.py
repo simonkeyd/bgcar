@@ -9,7 +9,7 @@ install_requires = (here / "requirements.txt").read_text(encoding="utf-8").split
 
 setup(
     name="bgcar",
-    version="1.0.0",
+    version="1.0.1",
     author="simonkeyd",
     author_email="simon.kheng1337@gmail.com",
     license="GNU GPLv3",
