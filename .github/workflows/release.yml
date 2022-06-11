@@ -1,0 +1,50 @@
+---
+name: release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
+
+      - name: setup build env
+        run: |
+          python3 -m pip install --upgrade pip build twine
+
+      #      - name: build & push
+      #        env:
+      #          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+      #        run: |
+      #          python3 -m build
+      #          python3 -m twine upload --user "__token__" \
+      #                                  --password "$PYPI_TOKEN" \
+      #                                  --non-interactive \
+      #                                  dist/*
+
+      - name: craft changelog
+        id: craft-changelog
+        run: |
+          echo "CHANGELOG<<MDR" >> $GITHUB_ENV
+          echo "## changelog" >> $GITHUB_ENV
+          if [[ $(git tag | wc -l) -ge 2 ]]; then
+            git_changelog_range="$(git describe --abbrev=0 ${GITHUB_REF}^)..$GITHUB_REF)"
+          fi
+          git log --pretty='%s  ' ${git_changelog_range} >> $GITHUB_ENV
+          echo "MDR" >> $GITHUB_ENV
+
+      - name: gh-release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: ${{ env.CHANGELOG }}
