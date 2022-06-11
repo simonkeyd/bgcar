@@ -1,4 +1,7 @@
 # BGCAR
+[![pypi](https://img.shields.io/pypi/v/bgcar)](https://pypi.org/project/bgcar)
+[![license: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![release](https://github.com/simonkeyd/bgcar/workflows/release/badge.svg)](https://github.com/simonkeyd/bgcar/releases)
 
 __Baldur's Gate Computer Assisted Reroll__ helps one effortlessly reach high ability scores for one's CHARNAME by performing computer assisted reroll. This program performs live roll result analysis and only stores the highest value. This is done by capturing screen area containing the `total roll` score and by analyzing this value using OCR.
 
