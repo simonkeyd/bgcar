@@ -27,6 +27,9 @@ Click on corresponding buttons when asked to and mark the area of the `Total rol
 
 note: Baldur's Gate game window has to be in the foreground so that `bgcar` can perform capture and clicks.
 
+## Demo
+![BGCAR demo](docs/assets/demo.gif)
+
 ## Advanced usage
 ```sh
 usage: bgcar [-h] [-i] [-d DELAY] [-m MAX_ROLL_COUNT] [--gpu]

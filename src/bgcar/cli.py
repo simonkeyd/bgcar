@@ -214,7 +214,7 @@ def main():
     buttons = Buttons()
 
     if args.initialize:
-        with console.status('[magenta]Gathering use inputs', spinner='arc'):
+        with console.status('[magenta]Gathering user inputs', spinner='arc'):
             buttons.init_settings()
 
     with console.status('[magenta]Loading settings', spinner='arc'):
